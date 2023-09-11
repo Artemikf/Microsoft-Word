@@ -28,21 +28,34 @@ namespace WindowsFormsApp1
             toolStripButton3.Text = "Подчеркнутый";
             toolStripButton3.Image = Image.FromFile("img/p1.png");
             toolStripButton4.Text = "Слева";
+            toolStripButton4.Image = Image.FromFile("img/left.png");
             toolStripButton5.Text = "Посредине";
+            toolStripButton5.Image = Image.FromFile("img/center.png");
             toolStripButton6.Text = "Справа";
+            toolStripButton6.Image = Image.FromFile("img/right.png");
             toolStripButton7.Text = "Маркировка";
             toolStripButton7.Image = Image.FromFile("img/numbering.png");
             toolStripButton8.Text = "Картинка";
+            toolStripButton9.Image = Image.FromFile("img/img.png");
             toolStripButton9.Text = "Назад";
+            toolStripButton9.Image = Image.FromFile("img/undo.png");
             toolStripButton10.Text = "Вперед";
+            toolStripButton10.Image = Image.FromFile("img/redo.png");
             toolStripSplitButton1.Text = "Цвет текста";
             toolStripSplitButton1.Image = Image.FromFile("img/brush.png");
             toolStripLabel1.Text = ($"Размер текста: {sizeFont}");
-            toolStripButton11.Text = "+";
-            toolStripButton12.Text = "-";
+            toolStripButton11.Text = "Сделать разер на 1 больше";
+            toolStripButton11.Image = Image.FromFile("img/plus.png");
+            toolStripButton12.Text = "Сделать разер на 1 меньше";
+            toolStripButton12.Image = Image.FromFile("img/minus.png");
+            toolStripButton13.Text = "Очистить все";
+            toolStripButton13.Image = Image.FromFile("img/metla.png");
+            saveToolStripMenuItem.Image = Image.FromFile("img/save.png");
+            openToolStripMenuItem.Image = Image.FromFile("img/open.png");
 
             toolStripComboBox1.Text = "Выбор шрифта";
             richTextBox1.SelectionFont = new Font(richTextBox1.Font.FontFamily, sizeFont);
+
         }
 
         private void fileToolStripMenuItem_Click(object sender, EventArgs e)
@@ -192,12 +205,30 @@ namespace WindowsFormsApp1
 
         private void toolStripButton9_Click(object sender, EventArgs e)
         {
-            richTextBox1.Undo();
-        }
+            SendKeys.Send("{BACKSPACE}");
 
+        }
+        private string deletedText = string.Empty; // Переменная для хранения удаленного текста
+
+        private void backButton_Click(object sender, EventArgs e)
+        {
+            if (richTextBox1.Text.Length > 0)
+            {
+                int selectionStart = richTextBox1.SelectionStart;
+                int selectionLength = richTextBox1.SelectionLength;
+
+                // Получаем текст, который собираемся удалить
+                deletedText = richTextBox1.SelectedText;
+
+                // Удаляем выделенный текст
+                richTextBox1.Text = richTextBox1.Text.Remove(selectionStart, selectionLength);
+                richTextBox1.SelectionStart = selectionStart;
+            }
+        }
         private void toolStripButton10_Click(object sender, EventArgs e)
         {
-            richTextBox1.Redo();
+            richTextBox1.Text = richTextBox1.Text.Insert(richTextBox1.SelectionStart, deletedText);
+        
         }
 
         private void toolStripComboBox1_Click(object sender, EventArgs e)
@@ -228,6 +259,18 @@ namespace WindowsFormsApp1
                 toolStripLabel1.Text = ($"Размер текста: {sizeFont}");
             }
 
+        }
+
+        private void toolStripButton13_Click(object sender, EventArgs e)
+        {
+            richTextBox1.Undo();
+            richTextBox1.SelectionFont = new Font(richTextBox1.Font.FontFamily, sizeFont);
+
+        }
+
+        private void toolStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+            
         }
     }
 }
