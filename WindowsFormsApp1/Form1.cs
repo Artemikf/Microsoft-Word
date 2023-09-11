@@ -18,6 +18,7 @@ namespace WindowsFormsApp1
         }
         bool jer = false; bool kur = false; bool pod = false;
         bool clev = false; bool pocnt = false; bool cprav = false; bool mark = false;
+        int sizeFont = 11; int sizeInterval = 0;
 
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -52,8 +53,16 @@ namespace WindowsFormsApp1
             toolStripButton13.Image = Image.FromFile("img/metla.png");
             saveToolStripMenuItem.Image = Image.FromFile("img/save.png");
             openToolStripMenuItem.Image = Image.FromFile("img/open.png");
+            toolStripLabel2.Text = ($"Междустрочный интервал: {sizeInterval}");
+            toolStripButton14.Text = "Сделать разер на 2 больше";
+            toolStripButton14.Image = Image.FromFile("img/plus.png");
+            toolStripButton15.Text = "Сделать разер на 2 меньше";
+            toolStripButton15.Image = Image.FromFile("img/minus.png");
+            toolStripButton16.Text = "Сделать интервал абзаца меньше";
+            toolStripButton16.Image = Image.FromFile("img/otstupM.png");
+            toolStripButton17.Text = "Сделать интервал абзаца больше";
+            toolStripButton17.Image = Image.FromFile("img/otstupB.png");
 
-            toolStripComboBox1.Text = "Выбор шрифта";
             richTextBox1.SelectionFont = new Font(richTextBox1.Font.FontFamily, sizeFont);
 
         }
@@ -231,12 +240,6 @@ namespace WindowsFormsApp1
         
         }
 
-        private void toolStripComboBox1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        int sizeFont = 11;
         private void toolStripButton11_Click(object sender, EventArgs e)
         {
             sizeFont += 1;
@@ -272,5 +275,31 @@ namespace WindowsFormsApp1
         {
             
         }
+
+        private void toolStripButton14_Click(object sender, EventArgs e)
+        {
+            sizeInterval += 2;
+            richTextBox1.SelectionCharOffset = sizeInterval;
+            toolStripLabel2.Text = ($"Междустрочный интервал: {sizeInterval}");
+        }
+        private void toolStripButton15_Click(object sender, EventArgs e)
+        {
+            sizeInterval -= 2;
+            richTextBox1.SelectionCharOffset = sizeInterval;
+            toolStripLabel2.Text = ($"Междустрочный интервал: {sizeInterval}");
+        }
+
+        private void toolStripButton16_Click(object sender, EventArgs e)
+        {
+            int hangingIndent = 20;
+            richTextBox1.SelectionHangingIndent = hangingIndent;
+        }
+
+        private void toolStripButton17_Click(object sender, EventArgs e)
+        {
+            int hangingIndent = -20;
+            richTextBox1.SelectionHangingIndent = hangingIndent;
+        }
     }
+    
 }
