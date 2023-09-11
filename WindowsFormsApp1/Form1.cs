@@ -22,20 +22,27 @@ namespace WindowsFormsApp1
         private void Form1_Load(object sender, EventArgs e)
         {
             toolStripButton1.Text = "Жирный";
-            
+            toolStripButton1.Image = Image.FromFile("img/j1.png");
             toolStripButton2.Text = "Курсив";
+            toolStripButton2.Image = Image.FromFile("img/k1.png");
             toolStripButton3.Text = "Подчеркнутый";
+            toolStripButton3.Image = Image.FromFile("img/p1.png");
             toolStripButton4.Text = "Слева";
             toolStripButton5.Text = "Посредине";
             toolStripButton6.Text = "Справа";
             toolStripButton7.Text = "Маркировка";
+            toolStripButton7.Image = Image.FromFile("img/numbering.png");
             toolStripButton8.Text = "Картинка";
             toolStripButton9.Text = "Назад";
             toolStripButton10.Text = "Вперед";
             toolStripSplitButton1.Text = "Цвет текста";
-            toolStripSplitButton2.Text = "Размер текста";
+            toolStripSplitButton1.Image = Image.FromFile("img/brush.png");
+            toolStripLabel1.Text = ($"Размер текста: {sizeFont}");
+            toolStripButton11.Text = "+";
+            toolStripButton12.Text = "-";
+
             toolStripComboBox1.Text = "Выбор шрифта";
-            richTextBox1.SelectionFont = new Font(richTextBox1.Font.FontFamily, 11);
+            richTextBox1.SelectionFont = new Font(richTextBox1.Font.FontFamily, sizeFont);
         }
 
         private void fileToolStripMenuItem_Click(object sender, EventArgs e)
@@ -181,7 +188,6 @@ namespace WindowsFormsApp1
             image = new Bitmap(image, new Size(120, 120));
             Clipboard.SetImage(image);
             richTextBox1.Paste();
-
         }
 
         private void toolStripButton9_Click(object sender, EventArgs e)
@@ -196,6 +202,31 @@ namespace WindowsFormsApp1
 
         private void toolStripComboBox1_Click(object sender, EventArgs e)
         {
+
+        }
+
+        int sizeFont = 11;
+        private void toolStripButton11_Click(object sender, EventArgs e)
+        {
+            sizeFont += 1;
+            richTextBox1.SelectionFont = new Font(richTextBox1.Font.FontFamily, sizeFont);
+            toolStripLabel1.Text = ($"Размер текста: {sizeFont}");
+
+        }
+
+        private void toolStripButton12_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                sizeFont -= 1;
+                richTextBox1.SelectionFont = new Font(richTextBox1.Font.FontFamily, sizeFont);
+                toolStripLabel1.Text = ($"Размер текста: {sizeFont}");
+            }
+            catch
+            {
+                sizeFont = 5;
+                toolStripLabel1.Text = ($"Размер текста: {sizeFont}");
+            }
 
         }
     }
